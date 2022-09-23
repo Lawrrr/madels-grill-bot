@@ -2,7 +2,10 @@ require('dotenv').config();
 const axios = require('axios').default;
 const { Client, GatewayIntentBits } = require('discord.js');
 
-const { DISCORD_TOKEN } = process.env;
+const { 
+  DISCORD_TOKEN,
+  SATOU_API
+} = process.env;
 const prefix = '?';
 
 const client = new Client({
@@ -17,7 +20,7 @@ client.once('ready', () => {
 	console.log('Ready!');
 });
 
-client.on('interactionCreate', async interaction => {
+client.on('interactionCreate', async (interaction: any) => {
 	if (!interaction.isChatInputCommand()) return;
 
 	const { commandName } = interaction;
@@ -31,7 +34,7 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
-client.on('messageCreate', (message) => {
+client.on('messageCreate', (message: any) => {
   if (message.author.bot) {
     return;
   }
@@ -46,12 +49,12 @@ client.on('messageCreate', (message) => {
   get_gif(command, message);
 });
 
-function get_gif(command, message) {
-  axios.get(`https://api.satou-chan.xyz/api/endpoint/${command}`)
-  .then((response) => {
+function get_gif(command: string, message: any) {
+  axios.get(`${SATOU_API}${command}`)
+  .then((response: any) => {
     message.reply(response.data.url);
   })
-  .catch((error) => {
+  .catch((error: Error) => {
     console.error('Error: ', error);
   })
 }
