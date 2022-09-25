@@ -1,12 +1,17 @@
 require('dotenv').config();
 const axios = require('axios').default;
-const { Client, GatewayIntentBits } = require('discord.js');
+import { CommandPayload } from './utils/inteface';
+const { 
+  Client, 
+  GatewayIntentBits
+} = require('discord.js');
 
 const { 
   DISCORD_TOKEN,
   SATOU_API
 } = process.env;
-const prefix = '?';
+
+const prefix = '?madel';
 
 const client = new Client({
   intents: [
@@ -20,20 +25,6 @@ client.once('ready', () => {
 	console.log('Ready!');
 });
 
-client.on('interactionCreate', async (interaction: any) => {
-	if (!interaction.isChatInputCommand()) return;
-
-	const { commandName } = interaction;
-
-	if (commandName === 'ping') {
-		await interaction.reply('Pong!');
-	} else if (commandName === 'server') {
-		await interaction.reply('Server info.');
-	} else if (commandName === 'user') {
-		await interaction.reply('User info.');
-	}
-});
-
 client.on('messageCreate', (message: any) => {
   if (message.author.bot) {
     return;
@@ -42,15 +33,27 @@ client.on('messageCreate', (message: any) => {
     return;
   }
 
-  const commandBody = message.content.slice(prefix.length);
-  const args = commandBody.split(' ');
-  const command = args.shift().toLowerCase();
-
-  get_gif(command, message);
+  const command: CommandPayload = get_command(message.content);
+  if (command.service === 'anime') {
+    get_gif(command, message);
+  }
 });
 
-function get_gif(command: string, message: any) {
-  axios.get(`${SATOU_API}${command}`)
+function get_command(message: string) {
+  const args = message.split(' ');
+  const command: CommandPayload = {
+    prefix: args[0],
+    service: args[1],
+    action: args[2],
+    targetUser: args[3] ? args[3] : ''
+  };
+
+  return command;
+}
+
+// anime gif
+function get_gif(command: CommandPayload, message: any) {
+  axios.get(`${SATOU_API}${command.action}`)
   .then((response: any) => {
     message.reply(response.data.url);
   })
