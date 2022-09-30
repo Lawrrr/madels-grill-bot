@@ -9,12 +9,12 @@ export default function (message: any) {
   const animeKeys = getKeys(anime.action);
 
   message.channel.send(
-  `These are my supported commands:
+`These are my supported commands:
 
-  **?madel help** - Displays help
-  **?madel anime <action>** - Displays anime gif
-  
-  **Anime Actions**\n\`${animeKeys.join(', ')}\`
-  `
+**?madel help** - Displays help
+**?madel anime <action>** - Displays anime gif
+
+**Anime Actions**\n\`${animeKeys.join(', ')}\`
+`
   )
 }

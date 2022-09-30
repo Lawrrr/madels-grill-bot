@@ -9,7 +9,11 @@ export default function (command: CommandPayload, message: any) {
 
   axios.get(`${SATOU_API}${command.action}`)
   .then((response: any) => {
-    message.reply(`${message.author} ${verb} ${command.targetUser}\n\n${response.data.url}`);
+    if(!verb) {
+      message.reply(`Action **${command.action}** not found.`);
+    } else {
+      message.reply(`${message.author} ${verb} ${command.targetUser}\n\n${response.data.url}`);
+    }
   })
   .catch((error: Error) => {
     console.error('Error: ', error);
