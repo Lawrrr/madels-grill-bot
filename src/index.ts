@@ -4,6 +4,7 @@ import Command from './utils/command';
 import setPresence from './utils/set-presence';
 
 import getAnimeGif from './anime/index';
+import getHelp from './help';
 
 const { 
   Client, 
@@ -33,7 +34,9 @@ client.on('messageCreate', (message: any) => {
   }
   
   const command = Command(message.content);
-  if (command.service === 'anime') {
+  if (command.service === 'help') {
+    getHelp(message);
+  } else if (command.service === 'anime') {
     getAnimeGif(command, message);
   }
 });
