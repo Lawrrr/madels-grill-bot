@@ -1,6 +1,6 @@
 import { CommandPayload } from './interface';
 
-export default function GetCommand(message: string) {
+export default function (message: string) {
   const args = message.split(' ');
   const command: CommandPayload = {
     prefix: args[0],

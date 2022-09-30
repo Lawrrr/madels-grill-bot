@@ -1,6 +1,10 @@
 require('dotenv').config();
-import GetCommand from './utils/get-command';
-import get_gif from './anime/index';
+// utils
+import Command from './utils/command';
+import setPresence from './utils/set-presence';
+
+import getAnimeGif from './anime/index';
+
 const { 
   Client, 
   GatewayIntentBits
@@ -17,6 +21,7 @@ const prefix = '?madel';
 
 client.once('ready', () => {
 	console.log('Ready!');
+  setPresence(prefix, client);
 });
 
 client.on('messageCreate', (message: any) => {
@@ -27,9 +32,9 @@ client.on('messageCreate', (message: any) => {
     return;
   }
   
-  const command = GetCommand(message.content);
+  const command = Command(message.content);
   if (command.service === 'anime') {
-    get_gif(command, message);
+    getAnimeGif(command, message);
   }
 });
 

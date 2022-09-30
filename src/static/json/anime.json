@@ -1,0 +1,29 @@
+{
+    "action": {
+        "angry": "is angry",
+        "anime": "is being anime",
+        "bite": "bites",
+        "bored": "is bored",
+        "bread": "is eating bread",
+        "chocolate": "is eating chocolate",
+        "cuddle": "cuddles",
+        "dance": "dances",
+        "drunk": "is drunk",
+        "happy": "is happy",
+        "laugh": "is laughing",
+        "lick": "licks",
+        "lonely": "is lonely",
+        "pat": "is patting",
+        "poke": "is poking",
+        "pregnant": "is pregnant",
+        "punch": "punches",
+        "run": "runs",
+        "slap": "slaps",
+        "sleep": "is sleeping",
+        "spank": "spanks",
+        "spit": "spits",
+        "steal": "steals",
+        "tickle": "tickles",
+        "nomm": "nomms"
+    }
+}
