@@ -23,6 +23,10 @@ jobs:
       - name: Add remote origin
         run: |
           git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
+      - name: Unshallow origin
+        run: |
+          git fetch --depth=5 heroku
+          git fetch --unshallow heroku
       - name: Deploy to Heroku
         run: |
-          git push heroku main -f
+          git push heroku HEAD:main -f
